@@ -1,0 +1,32 @@
+int MQ3_PIN   = A0;
+int BUZZ_PIN  = 8;
+int MOSFET_PIN = 6;
+int THRESHOLD = 420;
+bool alarmActive = false;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(BUZZ_PIN, OUTPUT);
+  pinMode(MOSFET_PIN, OUTPUT);
+  digitalWrite(MOSFET_PIN, HIGH);
+}
+
+void loop() {
+  int alcohol = analogRead(MQ3_PIN);
+  Serial.print("Alcohol: ");
+  Serial.println(alcohol);
+
+  if (alcohol > THRESHOLD && !alarmActive) {
+    digitalWrite(MOSFET_PIN, LOW);
+    tone(BUZZ_PIN, 1000);
+    alarmActive = true;
+  }
+
+  if (alcohol <= THRESHOLD && alarmActive) {
+    digitalWrite(MOSFET_PIN, HIGH);
+    noTone(BUZZ_PIN);
+    alarmActive = false;
+  }
+
+  delay(500);
+}
