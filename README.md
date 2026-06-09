@@ -115,7 +115,7 @@ python drowsiness_detection.py
 
 ## 🤝 Contributors
 
-* Shrey Anand
+* Bhagya Anand
 
 ---
 
